@@ -68,7 +68,7 @@ class Game(tk.Frame):
         self.main_grid.grid(pady=(80, 0))
         self.make_GUI()
         self.start_game()
-
+        
         self.master.bind("<Left>", self.left)
         self.master.bind("<Right>", self.right)
         self.master.bind("<Up>", self.up)
@@ -285,7 +285,7 @@ class Game(tk.Frame):
                 bg=LOSER_BG,
                 fg=GAME_OVER_FONT_COLOR,
                 font=GAME_OVER_FONT).pack()
-            
+    
 def main():
     Game()
 
