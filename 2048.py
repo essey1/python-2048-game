@@ -74,6 +74,33 @@ class Game(tk.Frame):
         self.master.bind("<Up>", self.up)
         self.master.bind("<Down>", self.down)
 
-        
+        self.mainloop()
 
-    
+    def make_GUI(self):
+        # make grid
+        self.cells = []
+        for i in range(4):
+            row = []
+            for j in range(4):
+                cell_frame = tk.Frame(
+                    self.main_grid,
+                    bg=EMPTY_CELL_COLOR,
+                    width=100,
+                    height=100)
+                cell_frame.grid(row=i, column=j, padx=5, pady=5)
+                cell_number = tk.Label(self.main_grid, bg=EMPTY_CELL_COLOR)
+                cell_number.grid(row=i, column=j)
+                cell_data = {"frame": cell_frame, "number": cell_number}
+                row.append(cell_data)
+            self.cells.append(row)
+
+        # make score header
+        score_frame = tk.Frame(self)
+        score_frame.place(relx=0.5, y=40, anchor="center")
+        tk.Label(
+            score_frame,
+            text="Score",
+            font=SCORE_LABEL_FONT).grid(
+            row=0)
+        self.score_label = tk.Label(score_frame, text="0", font=SCORE_FONT)
+        self.score_label.grid(row=1)
