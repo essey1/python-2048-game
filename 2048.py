@@ -1,7 +1,7 @@
 import tkinter as tk
 import random
 
-# Colors
+# Colors and fonts
 GRID_COLOR = "#a39489"
 EMPTY_CELL_COLOR = "#c2b3a9"
 SCORE_LABEL_FONT = ("Verdana", 20)
@@ -104,3 +104,31 @@ class Game(tk.Frame):
             row=0)
         self.score_label = tk.Label(score_frame, text="0", font=SCORE_FONT)
         self.score_label.grid(row=1)
+
+    def start_game(self):
+        # create matrix of zeroes
+        self.matrix = [[0] * 4 for _ in range(4)]
+
+        # fill 2 random cells with 2s
+        row = random.randint(0, 3)
+        col = random.randint(0, 3)
+        self.matrix[row][col] = 2
+        self.cells[row][col]["frame"].configure(bg=CELL_COLORS[2])
+        self.cells[row][col]["number"].configure(
+            bg=CELL_COLORS[2],
+            fg=CELL_NUMBER_COLORS[2],
+            font=CELL_NUMBER_FONTS[2],
+            text="2")
+        while(self.matrix[row][col] != 0):
+            row = random.randint(0, 3)
+            col = random.randint(0, 3)
+        self.matrix[row][col] = 2
+        self.cells[row][col]["frame"].configure(bg=CELL_COLORS[2])
+        self.cells[row][col]["number"].configure(
+            bg=CELL_COLORS[2],
+            fg=CELL_NUMBER_COLORS[2],
+            font=CELL_NUMBER_FONTS[2],
+            text="2")
+
+        self.score = 0
+        
