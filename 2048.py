@@ -285,3 +285,10 @@ class Game(tk.Frame):
                 bg=LOSER_BG,
                 fg=GAME_OVER_FONT_COLOR,
                 font=GAME_OVER_FONT).pack()
+            
+def main():
+    Game()
+
+
+if __name__ == "__main__":
+    main()
