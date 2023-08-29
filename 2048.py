@@ -263,3 +263,25 @@ class Game(tk.Frame):
                 if self.matrix[i][j] == self.matrix[i + 1][j]:
                     return True
         return False
+
+    # Check if Game is Over (Win/Lose)
+
+    def game_over(self):
+        if any(2048 in row for row in self.matrix):
+            game_over_frame = tk.Frame(self.main_grid, borderwidth=2)
+            game_over_frame.place(relx=0.5, rely=0.5, anchor="center")
+            tk.Label(
+                game_over_frame,
+                text="You win!",
+                bg=WINNER_BG,
+                fg=GAME_OVER_FONT_COLOR,
+                font=GAME_OVER_FONT).pack()
+        elif not any(0 in row for row in self.matrix) and not self.horizontal_move_exists() and not self.vertical_move_exists():
+            game_over_frame = tk.Frame(self.main_grid, borderwidth=2)
+            game_over_frame.place(relx=0.5, rely=0.5, anchor="center")
+            tk.Label(
+                game_over_frame,
+                text="Game over!",
+                bg=LOSER_BG,
+                fg=GAME_OVER_FONT_COLOR,
+                font=GAME_OVER_FONT).pack()
