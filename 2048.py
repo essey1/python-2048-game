@@ -1,17 +1,17 @@
-# build 2048 in python using pygame!!
-import pygame
-import random
+# build 2048 in python using pg!!
+import pygame as pg
+import random as rnd
 
-pygame.init()
+pg.init()
 
 # initial set up
 WIDTH = 400
 HEIGHT = 500
-screen = pygame.display.set_mode([WIDTH, HEIGHT])
-pygame.display.set_caption('2048')
-timer = pygame.time.Clock()
+screen = pg.display.set_mode([WIDTH, HEIGHT])
+pg.display.set_caption('2048')
+timer = pg.time.Clock()
 fps = 60
-font = pygame.font.Font('freesansbold.ttf', 24)
+font = pg.font.Font('freesansbold.ttf', 24)
 
 # 2048 game color library
 colors = {0: (204, 192, 179),
@@ -34,7 +34,7 @@ colors = {0: (204, 192, 179),
 # game variables initialize
 board_values = [[0 for _ in range(4)] for _ in range(4)]
 game_over = False
-spawn_new = True
+insert_new = True
 init_count = 0
 direction = ''
 score = 0
@@ -46,7 +46,7 @@ high_score = init_high
 
 # draw game over and restart text
 def draw_over():
-    pygame.draw.rect(screen, 'black', [50, 50, 300, 100], 0, 10)
+    pg.draw.rect(screen, 'black', [50, 50, 300, 100], 0, 10)
     game_over_text1 = font.render('Game Over!', True, 'white')
     game_over_text2 = font.render('Press Enter to Restart', True, 'white')
     screen.blit(game_over_text1, (130, 65))
@@ -130,16 +130,16 @@ def take_turn(direc, board):
     return board
 
 
-# spawn in new pieces randomly when turns start
+# insert in new pieces rndly when turns start
 def new_pieces(board):
     count = 0
     full = False
     while any(0 in row for row in board) and count < 1:
-        row = random.randint(0, 3)
-        col = random.randint(0, 3)
+        row = rnd.randint(0, 3)
+        col = rnd.randint(0, 3)
         if board[row][col] == 0:
             count += 1
-            if random.randint(1, 10) == 10:
+            if rnd.randint(1, 10) == 10:
                 board[row][col] = 4
             else:
                 board[row][col] = 2
@@ -150,7 +150,7 @@ def new_pieces(board):
 
 # draw background for the board
 def draw_board():
-    pygame.draw.rect(screen, colors['bg'], [0, 0, 400, 400], 0, 10)
+    pg.draw.rect(screen, colors['bg'], [0, 0, 400, 400], 0, 10)
     score_text = font.render(f'Score: {score}', True, 'black')
     high_score_text = font.render(f'High Score: {high_score}', True, 'black')
     screen.blit(score_text, (10, 410))
@@ -171,14 +171,14 @@ def draw_pieces(board):
                 color = colors[value]
             else:
                 color = colors['other']
-            pygame.draw.rect(screen, color, [j * 95 + 20, i * 95 + 20, 75, 75], 0, 5)
+            pg.draw.rect(screen, color, [j * 95 + 20, i * 95 + 20, 75, 75], 0, 5)
             if value > 0:
                 value_len = len(str(value))
-                font = pygame.font.Font('freesansbold.ttf', 48 - (5 * value_len))
+                font = pg.font.Font('freesansbold.ttf', 48 - (5 * value_len))
                 value_text = font.render(str(value), True, value_color)
                 text_rect = value_text.get_rect(center=(j * 95 + 57, i * 95 + 57))
                 screen.blit(value_text, text_rect)
-                pygame.draw.rect(screen, 'black', [j * 95 + 20, i * 95 + 20, 75, 75], 2, 5)
+                # pg.draw.rect(screen, 'black', [j * 95 + 20, i * 95 + 20, 75, 75], 2, 5)
 
 
 # main game loop
@@ -188,14 +188,14 @@ while run:
     screen.fill('gray')
     draw_board()
     draw_pieces(board_values)
-    if spawn_new or init_count < 2:
+    if insert_new or init_count < 2:
         board_values, game_over = new_pieces(board_values)
-        spawn_new = False
+        insert_new = False
         init_count += 1
     if direction != '':
         board_values = take_turn(direction, board_values)
         direction = ''
-        spawn_new = True
+        insert_new = True
     if game_over:
         draw_over()
         if high_score > init_high:
@@ -204,23 +204,23 @@ while run:
             file.close()
             init_high = high_score
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
             run = False
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
+        if event.type == pg.KEYUP:
+            if event.key == pg.K_UP:
                 direction = 'UP'
-            elif event.key == pygame.K_DOWN:
+            elif event.key == pg.K_DOWN:
                 direction = 'DOWN'
-            elif event.key == pygame.K_LEFT:
+            elif event.key == pg.K_LEFT:
                 direction = 'LEFT'
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pg.K_RIGHT:
                 direction = 'RIGHT'
 
             if game_over:
-                if event.key == pygame.K_RETURN:
+                if event.key == pg.K_RETURN:
                     board_values = [[0 for _ in range(4)] for _ in range(4)]
-                    spawn_new = True
+                    insert_new = True
                     init_count = 0
                     score = 0
                     direction = ''
@@ -229,5 +229,5 @@ while run:
     if score > high_score:
         high_score = score
 
-    pygame.display.flip()
-pygame.quit()
+    pg.display.flip()
+pg.quit()
