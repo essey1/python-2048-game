@@ -228,13 +228,13 @@ while run:
         if event.type == pg.QUIT:
             run = False
         if event.type == pg.KEYUP:
-            if event.key == pg.K_UP:
+            if event.key == pg.K_UP and not game_over:
                 direction = 'UP'
-            elif event.key == pg.K_DOWN:
+            elif event.key == pg.K_DOWN and not game_over:
                 direction = 'DOWN'
-            elif event.key == pg.K_LEFT:
+            elif event.key == pg.K_LEFT and not game_over:
                 direction = 'LEFT'
-            elif event.key == pg.K_RIGHT:
+            elif event.key == pg.K_RIGHT and not game_over:
                 direction = 'RIGHT'
 
             # resets the game when game over is true and the user clicks the enter key
