@@ -253,3 +253,12 @@ while run:
 
     pg.display.flip() # update the contents of the game after making changes
 pg.quit()
+
+
+# Group Memebers
+# 1.Ahmed Mensur UGR/9668/15
+# 2.Betretsion Aklilu UGR/4566/15
+# 3.Essey Tesfamichael UGR/9377/15
+# 4.Habtewold Degifie UGR/9789/15
+# 5.Kaleab Simachew UGR/4523/15
+# 6.Yohannes Demeke UGR/4620/15
